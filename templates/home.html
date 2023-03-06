@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      {% include '/components/header.html' %}
+  </head>
+  <body style="font-family: 'Nunito', sans-serif; background: #F6F8F9; font-size: small;">
+
+    <div class="container mt-2">
+
+
+      <h1 id="page_code">{{ code|upper }}</h1>
+
+      {% include '/components/qr_modal.html' %}
+
+      <div class="row">
+
+        <div class="col-md-6">
+          {% include '/components/send.html' %}
+        </div>
+        <div class="col-md-6">
+          {% include '/components/receive.html' %}
+        </div>
+        
+      </div>
+
+    </div>
+      
+    
+  </body>
+</html>

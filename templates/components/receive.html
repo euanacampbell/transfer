@@ -1,0 +1,32 @@
+<form>
+<div class="m-3">
+    <textarea class="form-control" id="ReceiveTextArea" rows="3" placeholder="Awaiting data..." disabled></textarea>
+</div>
+<!-- <button type="button" onclick="RecieveData()" class="btn btn-primary">Refresh</button> -->
+</form>
+
+
+
+
+
+<script>
+    // Check for latest data, and update ReceiveTextArea with the content
+    function RecieveData() {
+
+        var page_code = window.location.href.split("/")[3];
+        var RecievedData = '';
+
+        $.ajax({
+            url: "/" + page_code + "/receive",
+            contentType: "application/json;charset=utf-8",
+            method: "GET"
+        }).done(function(response) {
+            RecievedData = response.data;
+            document.getElementById("ReceiveTextArea").innerText = RecievedData;
+        });
+
+        setTimeout(RecieveData, 500);
+
+        }
+        RecieveData();
+</script>

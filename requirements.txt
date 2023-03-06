@@ -1,0 +1,5 @@
+Flask==1.0.2
+gunicorn==20.0.4
+requests==2.21.0
+praw==7.2.0
+linkpreview==0.1.12
