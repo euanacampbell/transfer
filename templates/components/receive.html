@@ -1,8 +1,8 @@
 <form>
 <div class="m-3">
-    <textarea class="form-control" id="ReceiveTextArea" rows="3" placeholder="Awaiting data..." disabled></textarea>
+    <textarea class="form-control" id="ReceiveTextArea" rows="6" placeholder="Awaiting data..." disabled></textarea>
 </div>
-<!-- <button type="button" onclick="RecieveData()" class="btn btn-primary">Refresh</button> -->
+<button type="button" onclick="RecieveData()" class="btn btn-primary">Refresh</button>
 </form>
 
 
@@ -25,7 +25,7 @@
             document.getElementById("ReceiveTextArea").innerText = RecievedData;
         });
 
-        setTimeout(RecieveData, 500);
+        setTimeout(RecieveData, 10000);
 
         }
         RecieveData();
