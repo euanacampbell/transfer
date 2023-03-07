@@ -1,30 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-      {% include '/components/header.html' %}
-  </head>
-  <body style="font-family: 'Nunito', sans-serif; background: #F6F8F9; font-size: small;">
+{% extends "base.html" %}
 
-    <div class="container mt-2">
+{% block content %}
+<h1 id="page_code">Home</h1>
 
 
-      <h1 id="page_code">{{ code|upper }}</h1>
 
-      {% include '/components/qr_modal.html' %}
+<a href="/{{ randomcode }}"><button type="button" class="btn btn-outline-secondary">Random clipboard</button></a>
 
-      <div class="row">
+<form>
+  <div class="m-3">
+    <input class="form-control" id="CustomCode" rows="3" placeholder="Custom code"></textarea>
+  </div>
+  <button onclick="GoToCustomCode()" type="button" class="btn btn-primary">Send</button>
+</form>
 
-        <div class="col-md-6">
-          {% include '/components/send.html' %}
-        </div>
-        <div class="col-md-6">
-          {% include '/components/receive.html' %}
-        </div>
-        
-      </div>
 
-    </div>
-      
-    
-  </body>
-</html>
+
+<script>
+
+    function GoToCustomCode() {
+
+        window.location.href = "/" + document.getElementById("CustomCode").value;;
+
+
+        }
+</script>
+
+
+{% endblock %}

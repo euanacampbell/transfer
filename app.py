@@ -1,6 +1,7 @@
 from flask import Flask, render_template, redirect, url_for, request, jsonify
 import os
 import dbm
+import uuid
 
 
 app = Flask(__name__)
@@ -8,14 +9,14 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-
-    return render_template('home.html')
+    random_code = uuid.uuid4().hex.upper()[0:6]
+    return render_template('home.html', randomcode=random_code)
 
 
 @app.route('/<code>')
 def code(code):
 
-    return render_template('home.html', code=code)
+    return render_template('code.html', code=code)
 
 
 @app.route('/<code>/send', methods=['POST'])
@@ -41,9 +42,6 @@ def receive(code):
             data = db[code].decode("utf-8")
     except KeyError:
         data = ''
-
-    print('DATA HERE')
-    print(data)
 
     return jsonify({
         'last_updated': '',
