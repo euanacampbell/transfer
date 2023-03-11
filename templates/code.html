@@ -1,18 +1,25 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1 id="page_code">{{ code|upper }}</h1>
+<h1 id="page_code">{{ code.code|upper }}</h1>
+
 
 {% include '/components/qr_modal.html' %}
+{% include '/components/expiry_select.html' %}
+
 
 <div class="row">
 
     <div class="col-md-6">
         {% include '/components/send.html' %}
     </div>
+    <!-- <div class="col-md-6">
+        {% include '/components/file_upload.html' %}
+    </div> -->
     <div class="col-md-6">
         {% include '/components/receive.html' %}
     </div>
+
 
 </div>
 {% endblock %}

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Code</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for code in codes %}
+    <tr>
+      <td>{{ code }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

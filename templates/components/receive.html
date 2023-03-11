@@ -1,8 +1,11 @@
 <form>
 <div class="m-3">
-    <textarea class="form-control" id="ReceiveTextArea" rows="6" placeholder="Awaiting data..." disabled></textarea>
+    <!-- <textarea class="form-control" id="ReceiveTextArea" rows="6" placeholder="Awaiting data..." disabled>{{ code.clipboard }}</textarea> -->
+    <p id="ReceiveTextArea">{{ code.clipboard }}</p>
+    <p>{{ code.data['expiry'] }}</p>
 </div>
-<button type="button" onclick="RecieveData()" class="btn btn-primary">Refresh</button>
+<p>{{ code.expiry }}</p>
+<!-- <button type="button" onclick="RecieveData()" class="btn btn-primary">Refresh</button> -->
 </form>
 
 
@@ -21,11 +24,11 @@
             contentType: "application/json;charset=utf-8",
             method: "GET"
         }).done(function(response) {
-            RecievedData = response.data;
+            RecievedData = response.clipboard;
             document.getElementById("ReceiveTextArea").innerText = RecievedData;
         });
 
-        setTimeout(RecieveData, 10000);
+        setTimeout(RecieveData, 1000);
 
         }
         RecieveData();
