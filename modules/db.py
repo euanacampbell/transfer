@@ -1,17 +1,22 @@
 import dbm
 from datetime import datetime
 
-from modules.helper_functions import string_to_date, date_to_string
+from modules.helper_functions import string_to_date, date_to_string, format_expiry, time_left
 
 
 class Code:
 
     def __init__(self, code):
         self.code = code
+        self.just_expired = False
         self.keys = self.get_keys()
         self.data = self.get_data()
         self.clipboard = self.data['clipboard'] or ''
+        self.expiry = format_expiry(self.data['expiry']) or ''
+        self.time_left = time_left(self.data['expiry']) or ''
         self.expired = self.has_expired()
+
+        print(self.time_left)
 
         if self.expired:
             self.keys = None
@@ -77,4 +82,6 @@ class Code:
             return False
         else:
             self.set_key_pair('clipboard', '')
+            self.set_key_pair('expiry', '')
+            self.just_expired = True
             return True

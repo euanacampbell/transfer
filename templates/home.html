@@ -6,18 +6,18 @@
   <main class="form-signin w-100 m-auto" style="max-width: 500px;">
     <form>
       <a href="/"><img class="mb-4" src="https://cdn-icons-png.flaticon.com/512/1600/1600145.png" alt="" height="100"></a>
-
-      <h1>Code: {{ code.code }}</h1>
-      {% if code.data['expiry'] %}
-      <p>Expires: {{ code.data['expiry'][:16] }}</p>
-      {% endif %}
+      <span>
+         <h1 id="headerCode">{{ code.code }}</h1>
+      </span>
+     
+      <p><span id="TimeLeft">{{ code.time_left }}</span></p>
 
       <div class="m-3">
         <textarea onkeyup="success()" class="form-control" rows="6" id="ClipboardText" placeholder="Add your text here...">{{ code.clipboard or '' }}</textarea>
         {% include '/components/expiry_select.html' %}
       </div>
       <button onclick="SendData()" id="saveButton" type="button" class="btn btn-secondary btn-lg" disabled>Save</button>
-      <button onClick="window.location.reload();" id="refreshButton" type="button" class="btn btn-outline-secondary btn-lg" disabled>Refresh</button>
+      <button onClick="window.location.reload();" id="refreshButton" type="button" class="btn btn-success btn-lg" disabled>Refresh</button>
     </form>
     
   </main>
@@ -46,10 +46,8 @@
 
 
   function SendData() {
-    // fullurl
-    var page_code = window.location.href.split("/")[3];
-    console.log('page code is: ' + page_code);
-    // var page_code = document.getElementById("page_code").value.toUpperCase();
+    var page_code = document.getElementById("headerCode").innerText;
+
     var SentData = document.getElementById("ClipboardText").value;
     var ExpiryOption = document.getElementById("expiry_select").value;
 
@@ -62,12 +60,13 @@
         contentType: "application/json;charset=utf-8",
         method: "POST"
     }).done(function(response) {
-        document.getElementById("ClipboardText").innerText = SentData;
+        document.getElementById("ownCodeInput").value = page_code;
+        document.getElementById("ownCodeSubmit").click();
     });
 
     }
 
-    function RecieveData() {
+  function RecieveData() {
 
         var url = new URL(window.location.href);
         var page_code = url.searchParams.get("code");
@@ -80,6 +79,11 @@
             method: "GET"
         }).done(function(response) {
             RecievedData = response.clipboard || "";
+            document.getElementById("TimeLeft").innerText = response.time_left;
+
+            if (response.just_expired == true  ){
+              location.reload();
+            }
 
             if (document.getElementById("ClipboardText").value === RecievedData) {
               document.getElementById('refreshButton').disabled = true;

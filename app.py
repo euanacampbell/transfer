@@ -52,10 +52,13 @@ def send(code):
 @app.route('/<code>/receive')
 def receive(code):
 
-    data = Code(code).clipboard
+    data = Code(code)
 
     return jsonify({
-        'clipboard': data
+        'clipboard': data.clipboard,
+        'time_left': data.time_left,
+        'expired': data.expired,
+        'just_expired': data.just_expired
     })
 
 

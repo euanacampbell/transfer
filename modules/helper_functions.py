@@ -4,20 +4,13 @@ from dateutil import parser
 
 def get_expiry(expiry_option):
 
-    options = ['once', '1', '10', '30', '60']
-
     # Incorrect value provided
+    options = ['0.5', '1', '10', '30', '60']
     if expiry_option not in options:
         raise Exception(f'Expiry option "{expiry_option}" not allowed.')
 
-    # Handle once
-    if expiry_option == 'once':
-        return 'once'
-
     # Create time delay
-    current_time = datetime.now()
-    # days, seconds, then other fields.
-    expiry_time = current_time + timedelta(minutes=int(expiry_option))
+    expiry_time = datetime.now() + timedelta(minutes=float(expiry_option))
 
     return expiry_time
 
@@ -30,3 +23,28 @@ def date_to_string(date):
 def string_to_date(strtime):
 
     return parser.parse(strtime)
+
+
+def format_expiry(date_as_string):
+
+    if not date_as_string:
+        return False
+
+    expiry = string_to_date(date_as_string)
+
+    formatted_date = datetime.strftime(
+        expiry, "%d/%b/%Y %H:%M:%S")
+
+    return formatted_date
+
+
+def time_left(date_as_string):
+
+    if not date_as_string:
+        return False
+
+    now = datetime.now()
+    expiry = string_to_date(date_as_string)
+    time_left = expiry-now
+
+    return str(time_left)[:7]
